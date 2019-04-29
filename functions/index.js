@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const cors = require('cors')({origin: true});
 
 const sendgrid = require('sendgrid')
-const client = sendgrid("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")
+const client = sendgrid("KEY")
 
 function parseBody(body) {
   var helper = sendgrid.mail;
