@@ -1,4 +1,5 @@
 const functions = require('firebase-functions');
+const cors = require('cors')({origin: true});
 
 const sendgrid = require('sendgrid')
 const client = sendgrid("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")
@@ -15,6 +16,11 @@ function parseBody(body) {
 
 
 exports.httpEmail = functions.https.onRequest((req, res) => {
+
+
+  cors(req, res, () => {
+
+
   return Promise.resolve()
     .then(() => {
       if (req.method !== 'POST') {
@@ -46,6 +52,8 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
       console.error(err);
       return Promise.reject(err);
     });
+
+  })
 
 
 })

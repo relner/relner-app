@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Headers, Response, URLSearchParams } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import {Email} from '../../interfaces';
+import {DataService} from '../../services/service';
 
 @Component({
   selector: 'app-home',
@@ -9,31 +9,27 @@ import 'rxjs/add/operator/toPromise';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: Http) { }
+  constructor(private dataService: DataService) { }
+
+  email: Email;
 
   ngOnInit() {
+
+    this.email = {
+      to: "a0546812643@gmail.com",
+      from: "vladimir@relner.com",
+      subject: "TEST MAILER",
+      content: "HELLO!!!!!!!!!!!!!!",
+  }
   }
 
-  sendEmail() {
 
-    let url = `https://your-cloud-function-url/function`
-    let params: URLSearchParams = new URLSearchParams();
-    let headers = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
 
-    params.set('to', 'user@example.com');
-    params.set('from', 'you@yoursupercoolapp.com');
-    params.set('subject', 'test-email');
-    params.set('content', 'Hello World');
 
-    return this.http.post(url, params, headers)
-                    .toPromise()
-                    .then( res => {
-                      console.log(res)
-                    })
-                    .catch(err => {
-                      console.log(err)
-                    })
-
+  sendEmail(){
+    this.dataService.sendEmailService(this.email).subscribe(obj=>{
+      console.log('sendet!');
+    });
   }
 
 }
