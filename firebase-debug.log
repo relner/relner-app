@@ -1,0 +1,55 @@
+[debug] [2019-05-06T14:34:49.918Z] ----------------------------------------------------------------------
+[debug] [2019-05-06T14:34:49.920Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\VladimirKeller\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-05-06T14:34:49.920Z] CLI Version:   6.8.0
+[debug] [2019-05-06T14:34:49.920Z] Platform:      win32
+[debug] [2019-05-06T14:34:49.920Z] Node Version:  v10.13.0
+[debug] [2019-05-06T14:34:49.921Z] Time:          Mon May 06 2019 17:34:49 GMT+0300 (Israel Daylight Time)
+[debug] [2019-05-06T14:34:49.921Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-05-06T14:34:49.928Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-05-06T14:34:49.928Z] > authorizing via signed-in user
+[debug] [2019-05-06T14:34:49.928Z] [iam] checking project relner for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-05-06T14:34:49.929Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-05-06T14:34:49.929Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-05-06T14:35:01.437Z] <<< HTTP RESPONSE 200
+[debug] [2019-05-06T14:35:01.443Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/relner:testIamPermissions  
+
+[debug] [2019-05-06T14:35:06.548Z] <<< HTTP RESPONSE 200
+[debug] [2019-05-06T14:35:06.549Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/relner  
+ 
+[debug] [2019-05-06T14:35:11.449Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'relner'...
+[info] 
+[info] i  deploying functions, hosting
+[debug] [2019-05-06T14:35:12.967Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "firebase-admin": "~7.0.0",
+    "firebase-functions": "^2.2.0",
+    "nodemailer": "^6.1.1",
+    "sendgrid": "^5.2.3"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-05-06T14:35:12.968Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/relner?view=CONSUMER_VIEW  
+ 
+[debug] [2019-05-06T14:35:12.968Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/relner?view=CONSUMER_VIEW  
+ 
+[debug] [2019-05-06T14:35:24.538Z] Error: getaddrinfo ENOTFOUND servicemanagement.googleapis.com servicemanagement.googleapis.com:443
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:57:26)
+[error] 
+[error] Error: Server Error. getaddrinfo ENOTFOUND servicemanagement.googleapis.com servicemanagement.googleapis.com:443

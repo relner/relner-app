@@ -24,8 +24,8 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
           port: 587,
           secure: true,
           auth: {
-              user: 'Vladimir@exchangevenus.com',
-              pass: 'HalifaxR2R'
+              user: 'xxxx',
+              pass: 'xxxx'
           }
       });
     
