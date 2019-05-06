@@ -1,66 +1,62 @@
 const functions = require('firebase-functions');
-const cors = require('cors')({origin: true});
+const cors = require('cors')({
+  origin: true,
+});
 
-const sendgrid = require('sendgrid')
-const client = sendgrid("KEY")
+var express = require('express'),
+    nodeMailer = require('nodemailer'),
+    bodyParser = require('body-parser');
 
-function parseBody(body) {
-  var helper = sendgrid.mail;
-  var fromEmail = new helper.Email(body.from);
-  var toEmail = new helper.Email(body.to);
-  var subject = body.subject;
-  var content = new helper.Content('text/html', body.content);
-  var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-  return  mail.toJSON();
-}
-
+var app = express();
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 exports.httpEmail = functions.https.onRequest((req, res) => {
 
+  return cors(req, res, () => {
 
-  cors(req, res, () => {
+    app.post('/send-email', function (req, res) {
 
-
-  return Promise.resolve()
-    .then(() => {
-      if (req.method !== 'POST') {
-        const error = new Error('Only POST requests are accepted');
-        error.code = 405;
-        throw error;
-      }
-
-
-      const request = client.emptyRequest({
-        method: 'POST',
-        path: '/v3/mail/send',
-        body: parseBody(req.body)
+      let transporter = nodeMailer.createTransport({
+          host: 'mail.exchangevenus.com',
+          port: 587,
+          secure: true,
+          auth: {
+              user: 'Vladimir@exchangevenus.com',
+              pass: 'HalifaxR2R'
+          }
       });
-
-      return client.API(request)
-
-
-    })
-    .then((response) => {
-      if (response.body) {
-        res.send(response.body);
-      } else {
-        res.end();
-      }
-    })
-
-    .catch((err) => {
-      console.error(err);
-      return Promise.reject(err);
+    
+      let mailOptions = {
+          from: 'V K <xx@gmail.com>', // sender address
+          to: req.body.to, // list of receivers
+          subject: req.body.subject, // Subject line
+          text: req.body.body, // plain text body
+          html: '<b>NodeJS Email Tutorial</b>' // html body
+      };
+    
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          }
+          console.log('Message %s sent: %s', info.messageId, info.response);
+              res.render('index');
+      });
+    
     });
 
-  })
-
+  });
 
 })
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+
+
+
+
+
+
+
+
+
